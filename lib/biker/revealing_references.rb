@@ -1,3 +1,7 @@
+#
+# Adding description to make Rubocop happy.
+#
+# @author [gerardvh]
 class RevealingReferences
   attr_reader :wheels
   def initialize(data)
@@ -5,15 +9,21 @@ class RevealingReferences
   end
 
   #
-  # This method can now rely on objects and message-sends, such as :rim and
-  # :tire instead of relying on the structure of an array that might change
-  # in the future.
+  # First - iterate over the array
   #
-  # @return [array] Array of diameters for each tire.
+  # @return [array] Array of diameters
   def diameters
-    wheels.collect do |wheel|
-      wheel.rim + (wheel.tire *2)
-    end
+    wheels.collect { |wheel| diameter(wheel) }
+  end
+
+  #
+  # Second - calculate the diameter of a single wheel.
+  #
+  # @param wheel [Wheel] Wheel that responds to :rim and :tire.
+  #
+  # @return [int] A single diameter.
+  def diameter(wheel)
+    wheel.rim + (wheel.tire * 2)
   end
 
   # Here we set up a simple `Struct` to keep our logic for wheels encapsulated.
@@ -26,7 +36,8 @@ class RevealingReferences
   # This is the only place that we need to know the structure of the array,
   # which is good DRY coding practice.
   #
-  # @param data [array] Two-dimensional array that contains values for rims and tires.
+  # @param data [array] Two-dimensional array that contains values for rims
+  # and tires.
   #
   # @return [array] Array of `Wheel` objects
   def wheelify(data)

@@ -14,6 +14,9 @@ class Gear
   end
 
   def gear_inches
+    # Important here that we are injecting the 'wheel' object instead of manually
+    # creating an instance with `Wheel.new(...)`. This way, `Gear` can deal with
+    # any thing that responds to the `.diameter` message.
     ratio * wheel.diameter
   end
 end

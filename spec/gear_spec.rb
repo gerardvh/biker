@@ -6,7 +6,10 @@ RSpec.describe Gear do
     wheel = Wheel.new(26, 1.5)
 
     it 'computes gear inches' do
-      gi = Gear.new(52, 11, wheel).gear_inches
+      gi = Gear.new(
+        chainring: 52,
+        cog:       11,
+        wheel:     wheel).gear_inches
       expect(gi).to be_within(0.1).of(137)
     end
   end

@@ -43,3 +43,15 @@ class Gear
     wheel.diameter
   end
 end
+
+# A wrapper like this allows us to make sure that we are not susceptible to
+# subtle bugs with argument order in an external dependency. We can call it with
+# `GearWrapper.gear chainring: 50, cog: 20, wheel: Wheel.new`
+# and we don't have to worry about the order.
+module GearWrapper
+  def self.gear(args)
+    SomeFramework::Gear.new(args[:chainring],
+                            args[:cog],
+                            args[:wheel])
+  end
+end
